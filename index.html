@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Loves You — 23 free PDF tools, right in your browser</title>
+<meta name="description" content="Merge, split, compress, convert, edit, sign and protect PDF files for free. Every tool runs in your browser — no uploads, no accounts, no watermarks, no limits.">
+<meta name="theme-color" content="#0072f5">
+<meta name="color-scheme" content="light dark">
+<script>
+  /* Apply the saved theme before the first paint to avoid a flash. */
+  (function () {
+    try {
+      var choice = localStorage.getItem("pdf-loves-you-theme") || "system";
+      var dark = choice === "dark" || (choice === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%230072f5'/%3E%3Cpath d='M12 9h11l6 6v16a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z' fill='white'/%3E%3Cpath d='M23 9v6h6' fill='%23cfe6ff'/%3E%3Cpath d='M14 20h11M14 24h8M14 28h10' stroke='%230072f5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ══════════ ICON SPRITE ══════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true">
+  <symbol id="i-merge" viewBox="0 0 24 24"><path d="M7 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2"/><path d="M12 16V8"/><path d="M9 11l3-3 3 3"/></symbol>
+  <symbol id="i-split" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8.4 7.5L20 18M8.4 16.5L20 6"/></symbol>
+  <symbol id="i-organize" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.8-6.3"/><path d="M21 3.5V9h-5.5"/></symbol>
+  <symbol id="i-extract" viewBox="0 0 24 24"><rect x="3" y="4" width="8.5" height="16" rx="2"/><path d="M15 8h6M15 12h6M15 16h4"/><path d="M6.8 8h1M6.8 11h1"/></symbol>
+  <symbol id="i-numbers" viewBox="0 0 24 24"><path d="M9.5 3L7.5 21M16.5 3l-2 18M3.5 8.5h17M3 15.5h17"/></symbol>
+  <symbol id="i-watermark" viewBox="0 0 24 24"><path d="M12 2.8c3.8 4.2 6.5 7.6 6.5 11.2a6.5 6.5 0 0 1-13 0c0-3.6 2.7-7 6.5-11.2z"/><path d="M9 14.5a3.2 3.2 0 0 0 3 3"/></symbol>
+  <symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 2v16h16"/><path d="M2 6h16v16"/></symbol>
+  <symbol id="i-redact" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><rect x="7" y="10" width="10" height="4.5" rx="1" fill="currentColor" stroke="none"/><path d="M7 7h6M7 17h8"/></symbol>
+  <symbol id="i-sign" viewBox="0 0 24 24"><path d="M3 19c3.5 0 4-1.5 6.5-4.5S14 7 16.2 7c1.5 0 2.3 1.1 1.6 2.6-1.1 2.5-4.1 4.9-4.1 6.4 0 .9.7 1.4 1.6 1.4 1.4 0 2.4-.9 3.6-2.3"/><path d="M3 21h18"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 6h16M12 6v14"/><path d="M8 20h8"/></symbol>
+  <symbol id="i-compress" viewBox="0 0 24 24"><path d="M9 3v6H3"/><path d="M3 9l6-6"/><path d="M15 21v-6h6"/><path d="M21 15l-6 6"/><path d="M3 15v4a2 2 0 0 0 2 2h4"/><path d="M21 9V5a2 2 0 0 0-2-2h-4"/></symbol>
+  <symbol id="i-repair" viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 0 0 5.9 5.9l-9.3 9.3a2.2 2.2 0 0 1-3.1 0l-5.7-5.7a2.2 2.2 0 0 1 0-3.1z"/><circle cx="17.5" cy="6.5" r="1"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="8.5" cy="9.5" r="1.7"/><path d="M4 18l5.2-5.2 3.3 3.3 4-4L21 16.5"/></symbol>
+  <symbol id="i-images" viewBox="0 0 24 24"><rect x="7" y="7" width="14" height="14" rx="3"/><path d="M17 3H6a3 3 0 0 0-3 3v11"/><circle cx="11.5" cy="11.5" r="1.3"/><path d="M7.5 18.5l3.8-3.8 2.3 2.3 2.6-2.6 2.6 2.6"/></symbol>
+  <symbol id="i-word" viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M8 12l1.4 5.5L12 11l2.6 6.5L16 12"/></symbol>
+  <symbol id="i-excel" viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M9 12l6 6M15 12l-6 6"/></symbol>
+  <symbol id="i-ppt" viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M9 12h5a2.2 2.2 0 0 1 0 4.4H9V12zm0 0v7"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M8.5 12h7M8.5 15.5h7M8.5 19h4"/></symbol>
+  <symbol id="i-ocr" viewBox="0 0 24 24"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><path d="M7 9h10M7 12.5h10M7 16h6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/><path d="M12 16.4v2.2"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 7.5-2"/><circle cx="12" cy="15" r="1.3" fill="currentColor" stroke="none"/><path d="M12 16.4v2.2"/></symbol>
+  <symbol id="i-pdfa" viewBox="0 0 24 24"><path d="M12 2.5l7.5 3v5.6c0 5-3.1 9.2-7.5 10.9C7.6 20.3 4.5 16.1 4.5 11.1V5.5z"/><path d="M8.6 12l2.3 2.3 4.5-4.6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v12"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/><path d="M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8L4.8 5.8v5.3c0 5 3.1 9.4 7.2 11.1 4.1-1.7 7.2-6.1 7.2-11.1V5.8L12 2.8z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.4"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></symbol>
+  <symbol id="i-infinity" viewBox="0 0 24 24"><path d="M7 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c2.5 0 4.5-6 7-6 1.7 0 3 1.3 3 3s-1.3 3-3 3c-2.5 0-4.5-6-7-6z"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11 3c.6 3.7 2.3 5.4 6 6-3.7.6-5.4 2.3-6 6-.6-3.7-2.3-5.4-6-6 3.7-.6 5.4-2.3 6-6z"/><path d="M18.5 13.5c.3 2 1.2 2.9 3.2 3.2-2 .3-2.9 1.2-3.2 3.2-.3-2-1.2-2.9-3.2-3.2 2-.3 2.9-1.2 3.2-3.2z"/></symbol>
+  <symbol id="i-cloud-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M8.5 8.5A5 5 0 0 0 7 18h10a4.5 4.5 0 0 0 2.4-.7"/><path d="M17.5 17.5A5 5 0 0 0 18 8h-1a6 6 0 0 0-3.4-2.6"/></symbol>
+  <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 3.5L22 20H2z"/><path d="M12 9.5v5"/><circle cx="12" cy="17.2" r=".6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M21 3v6h-6"/></symbol>
+  <symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.8-6.3"/><path d="M3 3.5V9h5.5"/></symbol>
+  <symbol id="i-rotate-cw" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.8-6.3"/><path d="M21 3.5V9h-5.5"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol>
+</svg>
+
+<div class="top-wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 760" preserveAspectRatio="none"><path d="M-60 760V-70H1450v830C880 575 200 687-60 760Z"/></svg>
+</div>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<header class="navbar navbar-glass" id="siteNav">
+  <div class="navbar-inner">
+    <a class="brand" href="#tools" aria-label="PDF Loves You home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b8cff"/><stop offset="1" stop-color="#0060d6"/></linearGradient></defs>
+        <rect width="40" height="40" rx="11" fill="url(#brandGrad)"/>
+        <path d="M12 9h11l6 6v16a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z" fill="#fff"/>
+        <path d="M23 9v6h6" fill="#d5e9ff"/>
+        <path d="M14.5 21h11M14.5 25h7M14.5 29h9" stroke="#0072f5" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-word">PDF <span>Loves</span> You</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main">
+      <a href="#tools" class="nav-link">All tools</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#how" class="nav-link">How it works</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+    </nav>
+
+    <div class="nav-end">
+      <div class="dd" id="themeDD">
+        <button class="dd-btn theme-btn" type="button" id="themeBtn" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" title="Theme">
+          <svg class="ic i-light"><use href="#i-sun"/></svg>
+          <svg class="ic i-dark"><use href="#i-moon"/></svg>
+        </button>
+        <div class="dd-menu" role="menu" aria-label="Theme">
+          <button class="dd-item" data-theme-choice="light" role="menuitem"><svg class="ic"><use href="#i-sun"/></svg> Light</button>
+          <button class="dd-item" data-theme-choice="dark" role="menuitem"><svg class="ic"><use href="#i-moon"/></svg> Dark</button>
+          <button class="dd-item" data-theme-choice="system" role="menuitem"><svg class="ic"><use href="#i-monitor"/></svg> System</button>
+        </div>
+      </div>
+      <a href="#tools" class="btn btn-primary btn-sm nav-cta">Choose a tool</a>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sideNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="side-overlay" id="sideOverlay"></div>
+<aside class="side-nav" id="sideNav" aria-hidden="true">
+  <div class="side-links">
+    <a href="#tools" class="side-link">All tools</a>
+    <a href="#features" class="side-link">Features</a>
+    <a href="#how" class="side-link">How it works</a>
+    <a href="#faq" class="side-link">FAQ</a>
+  </div>
+  <div class="side-themes">
+    <span class="side-label">Theme</span>
+    <div class="seg">
+      <button data-theme-choice="light" type="button"><svg class="ic"><use href="#i-sun"/></svg> Light</button>
+      <button data-theme-choice="dark" type="button"><svg class="ic"><use href="#i-moon"/></svg> Dark</button>
+      <button data-theme-choice="system" type="button"><svg class="ic"><use href="#i-monitor"/></svg> Auto</button>
+    </div>
+  </div>
+  <p class="side-note"><svg class="ic"><use href="#i-shield"/></svg> Your files never leave this device.</p>
+</aside>
+
+<main>
+  <!-- ══════════ HERO + TOOLS ══════════ -->
+  <section class="hero" id="tools">
+    <div class="hero-inner">
+      <span class="hero-badge reveal"><svg class="ic"><use href="#i-check"/></svg> 100% free &middot; No uploads &middot; No login &middot; No limits</span>
+      <h1 class="reveal">Every PDF tool.<br><span class="accent">Zero paywalls.</span></h1>
+      <p class="hero-sub reveal">Merge, split, compress, convert, edit, sign and protect PDFs right in your browser. Your files never leave your device — and nothing is ever watermarked or capped.</p>
+      <div class="hero-points reveal">
+        <span><svg class="ic"><use href="#i-zap"/></svg> Instant</span>
+        <span><svg class="ic"><use href="#i-shield"/></svg> Private by design</span>
+        <span><svg class="ic"><use href="#i-infinity"/></svg> Unlimited tasks</span>
+      </div>
+
+      <nav class="cat-tabs reveal" aria-label="Filter tools">
+        <button class="cat-tab active" data-cat="all"><svg class="ic"><use href="#i-organize"/></svg> All tools</button>
+        <button class="cat-tab" data-cat="organize"><svg class="ic"><use href="#i-merge"/></svg> Organize</button>
+        <button class="cat-tab" data-cat="optimize"><svg class="ic"><use href="#i-compress"/></svg> Optimize</button>
+        <button class="cat-tab" data-cat="convert"><svg class="ic"><use href="#i-doc"/></svg> Convert</button>
+        <button class="cat-tab" data-cat="edit"><svg class="ic"><use href="#i-sign"/></svg> Edit</button>
+        <button class="cat-tab" data-cat="security"><svg class="ic"><use href="#i-lock"/></svg> Security</button>
+      </nav>
+
+      <div class="tools-grid" id="toolsGrid"><!-- populated by app.js --></div>
+      <p class="tools-foot reveal"><strong id="toolCount">23</strong> tools &middot; <span>0</span> uploads &middot; <span>100%</span> free &middot; works offline</p>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS ══════════ -->
+  <section class="band band-alt" id="stats">
+    <div class="band-inner">
+      <div class="sec-head reveal">
+        <span class="sec-label">Free forever</span>
+        <h2>No uploads. No accounts. No limits.</h2>
+        <p class="sec-sub">Every tool runs locally with JavaScript and WebAssembly — the same heavy lifting the paid sites do, without the server, the queue or the price tag.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat reveal"><div class="stat-num">23</div><div class="stat-label">PDF tools, all free</div></div>
+        <div class="stat reveal"><div class="stat-num">0</div><div class="stat-label">Files uploaded</div></div>
+        <div class="stat reveal"><div class="stat-num">0</div><div class="stat-label">Ads or trackers</div></div>
+        <div class="stat reveal"><div class="stat-num">&infin;</div><div class="stat-label">Tasks, every day</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FEATURES ══════════ -->
+  <section class="band" id="features">
+    <div class="band-inner">
+      <div class="sec-head reveal">
+        <span class="sec-label">Why PDF Loves You?</span>
+        <h2>Everything a PDF toolkit should be</h2>
+        <p class="sec-sub">Clean, fast and genuinely private. No sign-up wall, no watermark, no “upgrade to download”.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon ic-blue"><svg class="ic"><use href="#i-cloud-off"/></svg></div>
+          <h3>Private by design</h3>
+          <p>Your documents are opened, edited and saved inside this tab. Nothing is sent to a server, logged, or stored — ever.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon ic-green"><svg class="ic"><use href="#i-infinity"/></svg></div>
+          <h3>Actually unlimited</h3>
+          <p>No daily caps, no file-count limits and no premium tier. Process one file or a hundred, as often as you like.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon ic-purple"><svg class="ic"><use href="#i-sparkles"/></svg></div>
+          <h3>Every format you need</h3>
+          <p>PDF, JPG, PNG, Word, Excel, PowerPoint and plain text. Convert in both directions with a couple of clicks.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon ic-amber"><svg class="ic"><use href="#i-lock"/></svg></div>
+          <h3>Real security</h3>
+          <p>Add or remove passwords with AES-256 encryption, set print and copy permissions, and truly redact sensitive content.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon ic-pink"><svg class="ic"><use href="#i-zap"/></svg></div>
+          <h3>Fast and offline-ready</h3>
+          <p>No uploading means no waiting for a round trip. Once the page is open, most tools work without a connection at all.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon ic-cyan"><svg class="ic"><use href="#i-shield"/></svg></div>
+          <h3>Free with no catch</h3>
+          <p>Every feature is available to everyone. No ads, no trackers, no email gate, no “free trial” countdown.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ HOW ══════════ -->
+  <section class="band band-alt" id="how">
+    <div class="band-inner">
+      <div class="sec-head reveal">
+        <span class="sec-label">How it works</span>
+        <h2>Three steps. No signup. No install.</h2>
+        <p class="sec-sub">Pick a tool, drop your file, download the result. That's the whole flow.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-num">1</div>
+          <h3>Pick a tool</h3>
+          <p>Choose from 23 tools for organising, optimising, converting, editing and securing PDFs.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">2</div>
+          <h3>Drop your files</h3>
+          <p>Drag a PDF or image into the workspace. It is read straight into the page — not uploaded anywhere.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">3</div>
+          <h3>Download the result</h3>
+          <p>Adjust the options, hit the button and save the finished file. No watermark, no waiting, no catch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="band" id="faq">
+    <div class="band-inner">
+      <div class="sec-head reveal">
+        <span class="sec-label">FAQ</span>
+        <h2>Frequently asked questions</h2>
+        <p class="sec-sub">Everything you might want to know before dropping your first file.</p>
+      </div>
+      <div class="faq-wrap">
+        <details class="faq-item reveal">
+          <summary>Is PDF Loves You really free?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>Yes — completely. There are no accounts, subscriptions, credits, watermarks or download limits, and there are <strong>no ads</strong> anywhere. Every tool is available to everyone.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Are my files uploaded?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>No. The page uses your browser's own PDF engine (PDF.js and pdf-lib) to read and write files locally. There is no document server, no storage bucket and no analytics on file contents. You can even disconnect from the internet after the page loads.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Are there limits or watermarks?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>There are no artificial limits. Output files are clean: no watermark, no footer branding, no “created with” page. The only practical limit is your device's memory.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Does it work offline?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>Yes. All PDF, image and Office conversion engines are bundled with the app. One optional feature — OCR — downloads its recognition engine and language data the first time it is used, then caches it.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Can it open password-protected PDFs?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>Yes, if you know the password. Use <strong>Unlock PDF</strong> to create a copy without the password, then edit it with any other tool. To add a password, use <strong>Protect PDF</strong>, which writes AES-256 encryption entirely in your browser.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Why does a converted Word or Excel file look different?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>PDF is a fixed-layout format; Word and Excel are flow-layout formats. PDF Loves You reconstructs text, lines and tables from the PDF's positioning data, which works well for text documents but cannot perfectly recreate complex magazine layouts. Scanned documents need OCR first.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Is this affiliated with iLovePDF or Adobe?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>No. PDF Loves You is an independent, original build inspired by the convenience of modern PDF suites. It is not affiliated with, endorsed by, or connected to iLovePDF, Adobe, or any other brand. All code, copy and artwork here are original.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Can I use it on my phone?<svg class="ic faq-chev"><use href="#i-chevron"/></svg></summary>
+          <div class="faq-body"><p>Yes. The interface is fully responsive and touch-friendly, including the signature pad and page editors. Very large documents will be slower on mobile than on a desktop, since all processing happens on your device.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#tools" aria-label="PDF Loves You home">
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <rect width="40" height="40" rx="11" fill="#0072f5"/>
+            <path d="M12 9h11l6 6v16a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z" fill="#fff"/>
+            <path d="M23 9v6h6" fill="#d5e9ff"/>
+            <path d="M14.5 21h11M14.5 25h7M14.5 29h9" stroke="#0072f5" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="brand-word">PDF <span>Loves</span> You</span>
+        </a>
+        <p>A free, private, client-side PDF toolkit. Your files stay on your device — nothing is stored by the tool.</p>
+        <p class="footer-privacy"><svg class="ic"><use href="#i-shield"/></svg> No uploads &middot; No trackers &middot; No accounts</p>
+      </div>
+      <div>
+        <h3>Organize</h3>
+        <ul>
+          <li><a href="#" data-tool-link="merge">Merge PDF</a></li>
+          <li><a href="#" data-tool-link="split">Split PDF</a></li>
+          <li><a href="#" data-tool-link="organize">Organize pages</a></li>
+          <li><a href="#" data-tool-link="rotate">Rotate PDF</a></li>
+          <li><a href="#" data-tool-link="extract">Extract pages</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Convert</h3>
+        <ul>
+          <li><a href="#" data-tool-link="pdf-to-word">PDF to Word</a></li>
+          <li><a href="#" data-tool-link="pdf-to-excel">PDF to Excel</a></li>
+          <li><a href="#" data-tool-link="pdf-to-ppt">PDF to PowerPoint</a></li>
+          <li><a href="#" data-tool-link="pdf-to-jpg">PDF to JPG</a></li>
+          <li><a href="#" data-tool-link="jpg-to-pdf">JPG to PDF</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Edit &amp; secure</h3>
+        <ul>
+          <li><a href="#" data-tool-link="sign">Sign PDF</a></li>
+          <li><a href="#" data-tool-link="watermark">Watermark</a></li>
+          <li><a href="#" data-tool-link="compress">Compress PDF</a></li>
+          <li><a href="#" data-tool-link="protect">Protect PDF</a></li>
+          <li><a href="#" data-tool-link="unlock">Unlock PDF</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#tools">All tools</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-gradient">
+      <div class="footer-legal">
+        <p>&copy; <span id="year">2026</span> PDF Loves You. Free for personal and commercial use. This is an independent project — not affiliated with iLovePDF, Adobe, or any other service.</p>
+        <p class="footer-made">Built with PDF.js, pdf-lib &amp; JSZip. No servers involved.</p>
+      </div>
+      <div class="footer-wordmark" aria-hidden="true">PDF Loves You</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ WORKSPACE ══════════ -->
+<div class="ws" id="workspace" role="dialog" aria-modal="true" aria-labelledby="wsName" hidden>
+  <div class="ws-top" id="wsTop">
+    <div class="ws-top-inner">
+      <button class="icon-btn" id="wsBack" type="button" aria-label="Back to all tools"><svg class="ic"><use href="#i-arrow-left"/></svg></button>
+      <div class="ws-id">
+        <span class="ws-ico" id="wsIcon"></span>
+        <div class="ws-id-text">
+          <h2 id="wsName">Tool</h2>
+          <p id="wsDesc"></p>
+        </div>
+      </div>
+      <div class="ws-top-end">
+        <span class="ws-privacy"><svg class="ic"><use href="#i-shield"/></svg> Runs in your browser</span>
+        <button class="icon-btn" id="wsClose" type="button" aria-label="Close workspace"><svg class="ic"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+    <div class="ws-progress" id="wsProgress" hidden><span id="wsProgressBar"></span></div>
+  </div>
+
+  <div class="ws-inner">
+    <main class="ws-main" id="wsStage"></main>
+    <aside class="ws-side" id="wsSide">
+      <div class="options-card">
+        <div class="options-head"><h3>Options</h3><span class="free-pill">FREE</span></div>
+        <div class="options" id="wsOptions"></div>
+      </div>
+      <div class="ws-runbar">
+        <button class="btn btn-primary btn-run" id="wsRun" type="button" disabled>
+          <svg class="ic"><use href="#i-download"/></svg>
+          <span id="wsRunText">Choose a file first</span>
+        </button>
+        <p class="run-note"><svg class="ic"><use href="#i-shield"/></svg> Files are processed locally and never uploaded.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/pdf.worker.blob.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/docx.iife.js"></script>
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="vendor/pptxgen.bundle.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/tools/organize.js"></script>
+<script src="js/tools/convert.js"></script>
+<script src="js/tools/edit.js"></script>
+<script src="js/tools/security.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
