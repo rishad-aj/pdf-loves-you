@@ -1,0 +1,6 @@
+# Firebase CLI working files
+.firebase/
+
+# OS junk
+.DS_Store
+Thumbs.db

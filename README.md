@@ -1,6 +1,6 @@
 # PDF Loves You
 
-**Live site:** https://rishad-aj.github.io/pdf-loves-you/
+**Live site:** https://pdflovesyou.web.app/
 
 PDF Loves You is a complete, free PDF toolkit that runs entirely in your browser. It has **23 tools** covering everyday PDF jobs — merging, splitting, compressing, converting, editing, signing and protecting — with **no accounts, uploads, watermarks, ads or download limits**.
 
@@ -147,6 +147,10 @@ pdf/
 ├─ assets/inter.woff2         Local Inter font
 ├─ server.js                  Dependency-free localhost static server
 ├─ start.bat                  Windows launcher for server.js
+├─ firebase.json              Firebase Hosting config (static deploy)
+├─ .firebaserc                Default Firebase project: pdflovesyou
+├─ robots.txt                 Crawler rules + sitemap pointer
+├─ sitemap.xml                Sitemap for search engines
 ├─ README.md                  This file
 └─ THIRD_PARTY_NOTICES.md     Licenses and attribution
 ```
@@ -162,6 +166,20 @@ The project has **no runtime dependencies** — all third-party libraries are al
 - Interactive editors use `PD.PageView` from `js/helpers.js`.
 - PDF.js documents are tracked in `PD.openDocs` and released when files change or a job finishes.
 - For `file://` use, the PDF.js worker is embedded as a Blob URL by `vendor/pdf.worker.blob.js`.
+
+---
+
+## Deploying
+
+Hosted on Firebase Hosting at **https://pdflovesyou.web.app/**.
+
+```bash
+npm install -g firebase-tools   # once
+firebase login                  # once
+firebase deploy --only hosting
+```
+
+`firebase.json` serves the project root as the site and excludes dotfiles, `node_modules`, the docs, `server.js` and `start.bat`. HTML is served `no-cache`; JS, CSS and fonts are cached for an hour. The default project is set in `.firebaserc`.
 
 ---
 
