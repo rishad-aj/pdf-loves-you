@@ -32,6 +32,16 @@ Node.js is only needed for the local server. All PDF processing still happens in
 
 ---
 
+## Install it as an app
+
+The site is a PWA. Use the install icon in the Chrome/Edge address bar, **⋮ → Install PDF Loves You**, or on mobile **Add to Home Screen** (iOS Safari: Share → *Add to Home Screen*). It then opens in its own window like a desktop app.
+
+A service worker precaches the app shell and the PDF libraries — about 4.5 MB, roughly 3 seconds on a decent connection — so every tool keeps working with **no network at all**. Later visits refresh the cache in the background and pick up new versions on the next reload.
+
+Service workers require HTTPS (or `localhost`), so installation works on https://pdflovesyou.web.app and via `node server.js`, but not from a `file://` page. Everything else works the same either way.
+
+---
+
 ## The 23 tools
 
 ### Organize
@@ -145,6 +155,9 @@ pdf/
 │     └─ security.js          Compress, repair, protect, unlock, PDF/A
 ├─ vendor/                    PDF.js, pdf-lib, JSZip, docx, SheetJS, PptxGenJS
 ├─ assets/inter.woff2         Local Inter font
+├─ assets/icons/              App icons: 192/512, maskable, apple-touch
+├─ manifest.webmanifest       PWA manifest (standalone, shortcuts, icons)
+├─ sw.js                      Service worker: precache + offline support
 ├─ server.js                  Dependency-free localhost static server
 ├─ start.bat                  Windows launcher for server.js
 ├─ firebase.json              Firebase Hosting config (static deploy)
@@ -166,6 +179,7 @@ The project has **no runtime dependencies** — all third-party libraries are al
 - Interactive editors use `PD.PageView` from `js/helpers.js`.
 - PDF.js documents are tracked in `PD.openDocs` and released when files change or a job finishes.
 - For `file://` use, the PDF.js worker is embedded as a Blob URL by `vendor/pdf.worker.blob.js`.
+- `sw.js` precaches the shell plus the seven vendor libraries. Navigations are network-first; other assets are stale-while-revalidate. Bump `VERSION` in `sw.js` if you remove a precached file, so old cache buckets get dropped.
 
 ---
 
